@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {sequelize , modelName : 'Crime'});
   Crime.associate = function(models) {
     // associations can be defined here
+    Crime.belongsTo(models.Category)
+    Crime.belongsTo(models.Police)
   };
   return Crime;
 };

@@ -1,7 +1,19 @@
 const Crime = require('../models').Crime
+const Police =require('../models').Police
+const Category = require('../models').Category
 
+console.log(Category)
 
 class Controller{
+
+    static findAll(req,res){
+        Crime.findAll({include : [Police , Category]})
+            .then(rows => {
+                res.send(rows)
+            })
+            .catch(err => console.log(err))
+    }
+
     static create(req, res){
         Crime.create({
             CategoryId : req.params.category,
@@ -42,8 +54,4 @@ class Controller{
     }   
 }
 
-<<<<<<< HEAD
 module.exports = Controller
-=======
-Controller.update()
->>>>>>> 2cfbed1d696ee2bc66fd1b17c11663339d228955
