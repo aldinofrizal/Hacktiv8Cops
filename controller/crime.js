@@ -2,21 +2,48 @@ const Crime = require('../models').Crime
 
 
 class Controller{
-    static create(){
+    static create(req, res){
         Crime.create({
-            CategoryId : 2,
-            PolouseId : 1,
-            longitude : -7.2431,
-            latitude: 106.4642,
-            victim: 'Nadil'
+            CategoryId : req.params.category,
+            PolouseId : req.params.police,
+            longitude : req.body.longitude,
+            latitude: req.body.latitude,
+            victim: req.body.victim,
+            description: req.body.description,
+            status: 'unsolved'
         })
         .then(row => {
-            console.log(row.dataValues)
+            // res.send(row)
+            console.log(row)
         })
         .catch(err => {
-            console.log(err.message)
+            // res.send(err)
         })
     }
+
+    static update(req,res){
+        Crime.update({
+            victim: req.body.victim,
+            longitude: req.body.longitude,
+            latitude: req.body.latitude,
+            description: req.body.description,            
+            status: req.body.status
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(row => {
+            console.log(row)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }   
 }
 
+<<<<<<< HEAD
 module.exports = Controller
+=======
+Controller.update()
+>>>>>>> 2cfbed1d696ee2bc66fd1b17c11663339d228955

@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     PolouseId: DataTypes.INTEGER,
     longitude: DataTypes.FLOAT,
     latitude: DataTypes.FLOAT,
-    victim: DataTypes.STRING
+    victim: DataTypes.STRING,
+    status: DataTypes.STRING,
+    description : DataTypes.STRING
   }, {sequelize , modelName : 'Crime'});
   Crime.associate = function(models) {
     // associations can be defined here
