@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
     "pg": "^7.12.1",
-    "sequelize": "^5.19.0"
+    "sequelize": "^5.19.0",
+    "sequelize-cli": "^5.5.1"
   }
 }
