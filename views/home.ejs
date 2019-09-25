@@ -34,6 +34,8 @@
         <a href="/add">add crime</a>
     </div>
 
+    <button onclick="initMap(-6.311016 , 106.819637)">coba</button>
+
 
     <script>
         
@@ -47,9 +49,9 @@
     
         
         var map;
-        function initMap() {
+        function initMap(x = Number(avg.latsAvg) ,y = Number(avg.longsAvg)) {
           
-              var myLatLng = { lat: Number(avg.latsAvg), lng: Number(avg.longsAvg) };
+              var myLatLng = { lat: x, lng: y };
               var map = new google.maps.Map(document.getElementById("map"), {
                   zoom: 15,
                 center: myLatLng
