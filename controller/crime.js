@@ -51,7 +51,7 @@ class Controller{
         .catch(err => {
             console.log(err)
         })
-    }   
+    }  
 }
 
 module.exports = Controller
