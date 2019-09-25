@@ -34,7 +34,7 @@
         <a href="/add">add crime</a>
     </div>
 
-    <button onclick="initMap(-6.311016 , 106.819637)">coba</button>
+    <button onclick="initMap(-6.264117, 106.784572, 10)">coba</button>
 
 
     <script>
@@ -49,7 +49,7 @@
     
         
         var map;
-        function initMap(x = Number(avg.latsAvg) ,y = Number(avg.longsAvg)) {
+        function initMap(x = Number(avg.latsAvg) ,y = Number(avg.longsAvg) , id = undefined) {
           
               var myLatLng = { lat: x, lng: y };
               var map = new google.maps.Map(document.getElementById("map"), {
@@ -75,9 +75,17 @@
                     
                 })
 
-                marker.addListener('click', function() {
+                if(id === undefined){
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker)
+                    })
+                }else if(id === element.id){
                     infoWindow.open(map, marker)
-                })
+                }else {
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker)
+                    })
+                }
 
               });
 
