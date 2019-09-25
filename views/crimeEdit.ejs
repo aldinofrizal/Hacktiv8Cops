@@ -9,17 +9,27 @@
 <body>
     <form action="/edit/<%= data.id%>" method="POST">
         <label for="victim">
-            Victim : <input type="text" name="victim">
+            Victim : <input type="text" name="victim" value="<%= data.victim %>">
         </label>
         <br>
         <br>
         <label for="description">
-            Description : <input type="text" name="description">
+            Description : <textarea rows="4" cols="50" type="text" name="description" placeholder="<%=data.description %>"></textarea>
+        </label>
+        <br>
+        <br>
+        <label for="longitude">
+            Longitude : <input type="text" name="longitude" value="<%= data.longitude %>">
+        </label>
+        <br>
+        <br>
+        <label for="latitude">
+            Latitude : <input type="text" name="latitude" value="<%= data.latitude %>">
         </label>
         <br>
         <br>
         <label for="status">
-            Status : <input type="text" name="status">
+            Status : <input type="text" name="status" value="<%= data.status %>">
         </label>
         <br>
         <br>

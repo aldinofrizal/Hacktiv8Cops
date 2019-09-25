@@ -3,7 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
   class Crime extends Model{}
   Crime.init({
-    CategoryId: DataTypes.INTEGER,
+    id : {type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true},
+    CategoryId:DataTypes.INTEGER,
     PolouseId: DataTypes.INTEGER,
     longitude: DataTypes.FLOAT,
     latitude: DataTypes.FLOAT,

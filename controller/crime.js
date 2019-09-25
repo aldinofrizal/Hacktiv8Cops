@@ -34,18 +34,33 @@ class Controller{
         })
     }
 
+    static findOne(req,res){
+        Crime.findOne({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(data =>{
+            res.render('../views/crimeEdit',{data})
+        })
+        .catch(err => res.send(err))
+    }
+
     static update(req,res){
         Crime.update({
+            longitude: req.body.longitude,
+            latitude: req.body.latitude,
             victim: req.body.victim,
-            description: req.body.description,            
-            status: req.body.status
+            updatedAt: new Date(),
+            status: req.body.status,
+            description: req.body.description            
         }, {
             where: {
                 id: req.params.id
             }
         })
         .then(row => {
-            console.log(row)
+            res.redirect('/')
         })
         .catch(err => {
             console.log(err)

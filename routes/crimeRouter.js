@@ -14,8 +14,8 @@ router.get('/add', Crime.form)
 
 router.post('/add', Crime.create)
 
-router.get('/edit/:id')
+router.get('/edit/:id',Crime.findOne)
 
-router.post('/edit/:id')
+router.post('/edit/:id',Crime.update)
 
 module.exports = router
