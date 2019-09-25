@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Crime | Edit</title>
+</head>
+<body>
+    <form action="/edit/<%= data.id%>" method="POST">
+        <label for="victim">
+            Victim : <input type="text" name="victim">
+        </label>
+        <br>
+        <br>
+        <label for="description">
+            Description : <input type="text" name="description">
+        </label>
+        <br>
+        <br>
+        <label for="status">
+            Status : <input type="text" name="status">
+        </label>
+        <br>
+        <br>
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>

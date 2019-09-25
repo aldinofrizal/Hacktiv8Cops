@@ -36,8 +36,6 @@ class Controller{
     static update(req,res){
         Crime.update({
             victim: req.body.victim,
-            longitude: req.body.longitude,
-            latitude: req.body.latitude,
             description: req.body.description,            
             status: req.body.status
         }, {
@@ -52,6 +50,10 @@ class Controller{
             console.log(err)
         })
     }  
+
+    static editForm(req,res){
+        
+    }
 }
 
 module.exports = Controller
