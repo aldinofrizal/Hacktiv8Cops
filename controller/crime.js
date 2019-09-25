@@ -19,4 +19,4 @@ class Controller{
     }
 }
 
-Controller.create()
+module.exports = Controller
