@@ -1,12 +1,34 @@
 'use strict';
+const average = require('../helper/average')
+
+
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
-  class Crime extends Model{}
+  class Crime extends Model{
+    
+    static getCenteredCoords(){
+      Crime.findAll()
+        .then(rows => {
+          let longs = []
+          let lats = []
+          rows.forEach(x => {
+            longs.push(x.longitude)
+            lats.push(x.latitude)
+          })
+          let longsAvg = average(longs)
+          let latsAvg = average(lats)
+          return Promise({longsAvg,latsAvg})
+        })
+    }
+
+  }
   Crime.init({
-    id : {type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true},
-    CategoryId:DataTypes.INTEGER,
+    id : {
+      type : DataTypes.INTEGER,
+      primaryKey : true,
+      autoIncrement: true
+    },
+    CategoryId: DataTypes.INTEGER,
     PolouseId: DataTypes.INTEGER,
     longitude: DataTypes.FLOAT,
     latitude: DataTypes.FLOAT,
