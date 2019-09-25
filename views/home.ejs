@@ -19,10 +19,11 @@
     <div id="map"  style="height: 50%"></div>
 
     <div id="rows" data-rows=<%= encodeURI(JSON.stringify(rows)) %> </div>
+    <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %></div>
     
     <div id="list-crime">
-        <%= encodeURI(JSON.stringify(rows)) %>
-     
+        <%= JSON.stringify(rows) %>
+        <%= JSON.stringify(avg) %>
     </div>
 
 
@@ -38,7 +39,9 @@
         
         const data = document.getElementById('rows').dataset.rows
         const coords = JSON.parse(decodeURI(data))
-        console.log(coords)
+        
+        const avg = JSON.parse(document.getElementById('avg').dataset.avg)
+    
         
         var map;
         function initMap() {
