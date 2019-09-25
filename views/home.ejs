@@ -9,7 +9,7 @@
   <body>
     <div id="map"  style="height: 50%"></div>
 
-    <div id="rows" data-rows = <%= JSON.stringify(rows) %> </div>
+    <div id="rows" data-rows =<%= rows%> </div>
     
     <div id="list-crime">
         <% rows.forEach(x => { %>
@@ -19,16 +19,22 @@
     </div>
 
 
-    <script>
-        // const data = document.getElementById(rows).dataset.test
-        // console.log(data)
+    <div id="links">
+        <a href="/crime/police-register">register</a>
+        <a href="/add">add crime</a>
+    </div>
 
+
+    <script>
         
         
+        
+        const data = document.getElementById('rows').dataset.rows
+        console.log(data)
         
         var map;
         function initMap() {
-            const data =  JSON.parse(rows.dataset.rows)
+            // const data =  JSON.parse(rows.dataset.rows)
             
               var myLatLng = { lat: -6.259788, lng: 106.781646 };
               var map = new google.maps.Map(document.getElementById("map"), {
@@ -38,11 +44,15 @@
 
               let marker;
 
-              data.forEach(element => {
-                marker = new google.maps.Marker({
-                position : new google.maps.LatLng( element.longitude ,  element.latitude),
-                map : map}) 
-              });
+              marker = new google.maps.Marker({
+                  position : new google.maps.LatLng(-6.256262, 106.7342),
+                  map:map
+              })
+            //   data.forEach(element => {
+            //     marker = new google.maps.Marker({
+            //     position : new google.maps.LatLng( element.longitude ,  element.latitude),
+            //     map : map}) 
+            //   });
             }
     </script>
 

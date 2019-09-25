@@ -10,9 +10,9 @@ router.get('/police-register',Police.form)
 
 router.post('/police-register',Police.create)
 
-router.get('/add')
+router.get('/add', Crime.form)
 
-router.post('/add')
+router.post('/add', Crime.create)
 
 router.get('/edit/:id')
 

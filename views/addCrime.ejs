@@ -1,0 +1,44 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>add crime</title>
+</head>
+<body>
+
+    <%= JSON.stringify(rows) %>
+    <form action="/add" method="POST">
+    
+    <label for="victim">victim</label>
+    <input type="text" name="victim">
+    <br/>
+
+    <label for="category">category</label>
+    
+    <select name="category" id="category">
+        <option > choose category</option>
+        <% rows.forEach(x => { %>
+         <option value="<%=x.id%>"><%= x.name %></option>
+        <% }) %>
+    </select>
+    
+    <br/>
+
+    <label for="longitude">longitude</label>
+    <input type="text" name="longitude">
+    <br/>
+
+    <label for="latitude">latitude</label>
+    <input type="text" name="latitude">
+    <br/>
+    
+    <label for="description">description</label>
+    <textarea  name="description"> </textarea>
+    <br/>
+
+    <button type="submit">add</button>
+    
+    </form>
+</body>
+</html>

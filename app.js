@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 app.set('view engine', 'ejs')
 
 
-app.use('/crime', crime)
+app.use('/', crime)
 
 
 app.listen(PORT,()=> console.log('listening to port ',PORT))

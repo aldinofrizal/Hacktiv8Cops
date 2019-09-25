@@ -6,12 +6,9 @@ class Controller{
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            salt: "",
-            createdAt: new Date(),
-            updatedAt: new Date()
         })
         .then(row=>{
-            res.redirect('/crime/police-register')
+            res.redirect('/crime')
         })
         .catch(err=>{
             res.send(err)
