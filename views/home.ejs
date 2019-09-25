@@ -13,68 +13,69 @@
         text-align: center;
         padding: 10px;
       }
+      p{
+          margin: 0;
+      }
+      .gm-style-iw{
+          height: 1000px !important;
+          width: 300px;
+      }
     </style>
   </head>
   <body>
-    <div id="map"  style="height: 50%"></div>
+      <div id="map"  style="height: 50%; width: 100%"></div>
 
     <div id="rows" data-rows=<%= encodeURI(JSON.stringify(rows)) %> </div>
-    
-    <div id="list-crime">
-      <table>
-        <tr>
-          <th>
-            Option
-          </th>
-          <th>
-            Category
-          </th>
-          <th>
-            Victim
-          </th>
-          <th>Status</th>
-          <th>Description</th>
-          <th>Time</th>
-        </tr>
-        <% rows.forEach((x,index) => { %>
+      <div id="list-crime">
+        <table>
           <tr>
-            <td>
-              <a href="/edit/<%= x.id %>">Edit</a>
-            </td>
-            <td>
-              <%= x.dataValues.Category.name %>
-            </td>
-            <td>
-              <%= x.victim %>
-            </td>
-            <td>
-              <%= x.status %>
-            </td>
-            <td>
-              <%= x.description %>
-            </td>
-            <td>
-              <%= x.createdAt %>
-            </td>
+            <th>
+              Option
+            </th>
+            <th>
+              Category
+            </th>
+            <th>
+              Victim
+            </th>
+            <th>Status</th>
+            <th>Description</th>
+            <th>Time</th>
           </tr>
-          <br/>
-        <% }) %>
-      </table>
-        <% encodeURI(JSON.stringify(rows)) %>
-     
-    </div>
-
+          <% rows.forEach((x,index) => { %>
+            <tr>
+              <td>
+                <a href="/edit/<%= x.id %>">Edit</a>
+              </td>
+              <td>
+                <%= x.dataValues.Category.name %>
+              </td>
+              <td>
+                <%= x.victim %>
+              </td>
+              <td>
+                <%= x.status %>
+              </td>
+              <td>
+                <%= x.description %>
+              </td>
+              <td>
+                <%= x.createdAt %>
+              </td>
+            </tr>
+            <br/>
+          <% }) %>
+        </table>
+          <% encodeURI(JSON.stringify(rows)) %>
+      </div>
 
     <div id="links">
         <a href="/crime/police-register">register</a>
         <a href="/add">add crime</a>
     </div>
 
-
     <script>
-        
-        
-        
+
         const data = document.getElementById('rows').dataset.rows
         const coords = JSON.parse(decodeURI(data))
         console.log(coords)
@@ -85,20 +86,48 @@
             
               var myLatLng = { lat: -6.259788, lng: 106.781646 };
               var map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 10,
+                  zoom: 12,
                 center: myLatLng
-              });
+            });
+            
+            let marker;
+            
 
-              let marker;
 
-              coords.forEach(element => {
+              coords.forEach((element, index) => {
+                let url = "http://maps.google.com/mapfiles/ms/icons/";
+                if(element.status === "unsolved"){
+                  url += "green" + "-dot.png";
+                }else if(element.status === "solved"){
+                  url += "blue" + "-dot.png";
+                }
                 marker = new google.maps.Marker({
                 position : new google.maps.LatLng( element.latitude ,  element.longitude),
-                map : map}) 
+                map : map,
+                icon: {
+                  url:url
+                }
+              }) 
+                
+                let infoWindow = new google.maps.InfoWindow({
+                    content : 
+                    `<p><b>` + element.Category.name + `</b></p>` +
+                    `<p>Victim :<b>`+ element.victim +`</b></p>` +
+                    `<p>description :`+ element.description +`</p>` +
+                    `<p>`+ Date(element.createdAt).slice(0,24) +`</p>` 
+                    
+                })
+
+                marker.addListener('click', function() {
+                    infoWindow.open(map, marker)
+                })
+
               });
+
+
+              
             }
     </script>
-
 <script
 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLTqWECu-KGCj3sjk3qPuAaPM9P0hyhOg&callback=initMap"
 async
