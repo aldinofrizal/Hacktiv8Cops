@@ -41,6 +41,7 @@
             <th>Status</th>
             <th>Description</th>
             <th>Time</th>
+            <th>Button</th>
           </tr>
           <% rows.forEach((x,index) => { %>
             <tr>
@@ -62,12 +63,16 @@
               <td>
                 <%= x.createdAt %>
               </td>
+              <td>
+                <button onclick="initMap(<%=x.latitude%>,<%=x.longitude%>,18)">Click</button>
+              </td>
             </tr>
             <br/>
           <% }) %>
         </table>
           <% encodeURI(JSON.stringify(rows)) %>
       </div>
+    <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %> </div>
 
 
     <div id="links">
@@ -80,16 +85,16 @@
         const data = document.getElementById('rows').dataset.rows
         const coords = JSON.parse(decodeURI(data))
         
-        const avg = JSON.parse(document.getElementById('avg').dataset.avg)
+        const avgURI = document.getElementById('avg').dataset.avg
+        const avg = JSON.parse(decodeURI(avgURI))
     
         
         var map;
-        function initMap() {
-            // const data =  JSON.parse(rows.dataset.rows)
-            
-              var myLatLng = { lat: -6.259788, lng: 106.781646 };
+        function initMap(x = Number(avg.latsAvg), y = Number(avg.longsAvg),z=12) {
+          
+              var myLatLng = { lat: x , lng: y };
               var map = new google.maps.Map(document.getElementById("map"), {
-                  zoom: 12,
+                  zoom: z,
                 center: myLatLng
             });
             
@@ -100,9 +105,9 @@
               coords.forEach((element, index) => {
                 let url = "http://maps.google.com/mapfiles/ms/icons/";
                 if(element.status === "unsolved"){
-                  url += "green" + "-dot.png";
+                  url += "red" + "-dot.png";
                 }else if(element.status === "solved"){
-                  url += "blue" + "-dot.png";
+                  url += "green" + "-dot.png";
                 }
                 marker = new google.maps.Marker({
                 position : new google.maps.LatLng( element.latitude ,  element.longitude),
@@ -116,8 +121,9 @@
                     content : 
                     `<p><b>` + element.Category.name + `</b></p>` +
                     `<p>Victim :<b>`+ element.victim +`</b></p>` +
-                    `<p>description :`+ element.description +`</p>` +
-                    `<p>`+ Date(element.createdAt).slice(0,24) +`</p>` 
+                    `<p>Description :`+ element.description +`</p>` +
+                    `<p>`+ Date(element.createdAt).slice(0,24) +`</p>` +
+                    `<p>Status :` + element.status + `</p>` 
                     
                 })
 
@@ -125,10 +131,8 @@
                     infoWindow.open(map, marker)
                 })
 
+
               });
-
-
-              
             }
     </script>
 <script

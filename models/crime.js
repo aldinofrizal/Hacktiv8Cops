@@ -6,9 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
   class Crime extends Model{
     
-    static getCenteredCoords(){
-      Crime.findAll()
-        .then(rows => {
+    static getCenteredCoords(rows){
           let longs = []
           let lats = []
           rows.forEach(x => {
@@ -17,8 +15,9 @@ module.exports = (sequelize, DataTypes) => {
           })
           let longsAvg = average(longs)
           let latsAvg = average(lats)
-          return Promise({longsAvg,latsAvg})
-        })
+          
+          const coord = { longsAvg, latsAvg }
+          return ({longsAvg,latsAvg})
     }
 
   }

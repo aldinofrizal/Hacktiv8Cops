@@ -28,9 +28,11 @@
         </label>
         <br>
         <br>
-        <label for="status">
-            Status : <input type="text" name="status" value="<%= data.status %>">
-        </label>
+        <p>Status terkini : <%= data.status %></p>
+        <select name="status">
+            <option value="solved">Solved</option>
+            <option value="unsolved">Unsolved</option>
+        </select>
         <br>
         <br>
         <input type="submit" value="Save">
