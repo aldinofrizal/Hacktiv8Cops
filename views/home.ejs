@@ -20,10 +20,22 @@
           height: 1000px !important;
           width: 300px;
       }
+      table,th,td{
+        border-bottom: 2px solid black;
+        border-collapse: collapse
+      }
     </style>
   </head>
   <body>
-      <div id="map"  style="height: 50%; width: 100%"></div>
+    <div id="map"  style="height: 50%; width: 100%"></div>
+
+    <div id="links">
+        <a href="/crime/police-register">register</a>
+        <a href="/add">add crime</a>
+    </div>
+    <br>
+    <br>
+    <a href="/">Default</a>
 
     <div id="rows" data-rows=<%= encodeURI(JSON.stringify(rows)) %> </div>
       <div id="list-crime">
@@ -64,7 +76,10 @@
                 <%= x.createdAt %>
               </td>
               <td>
-                <button onclick="initMap(<%=x.latitude%>,<%=x.longitude%>,18)">Click</button>
+                <button onclick="initMap(<%=x.latitude%>,<%=x.longitude%>,<%=x.id%>,18)">Click</button>
+                <br>
+                <br>
+                <button>Delete</button>
               </td>
             </tr>
             <br/>
@@ -74,11 +89,6 @@
       </div>
     <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %> </div>
 
-
-    <div id="links">
-        <a href="/crime/police-register">register</a>
-        <a href="/add">add crime</a>
-    </div>
 
     <script>
 
@@ -90,9 +100,9 @@
     
         
         var map;
-        function initMap(x = Number(avg.latsAvg), y = Number(avg.longsAvg),z=12) {
+        function initMap(x = Number(avg.latsAvg) ,y = Number(avg.longsAvg) , id = undefined,z=12) {
           
-              var myLatLng = { lat: x , lng: y };
+              var myLatLng = { lat: x, lng: y };
               var map = new google.maps.Map(document.getElementById("map"), {
                   zoom: z,
                 center: myLatLng
@@ -100,8 +110,6 @@
             
             let marker;
             
-
-
               coords.forEach((element, index) => {
                 let url = "http://maps.google.com/mapfiles/ms/icons/";
                 if(element.status === "unsolved"){
@@ -124,14 +132,19 @@
                     `<p>Description :`+ element.description +`</p>` +
                     `<p>`+ Date(element.createdAt).slice(0,24) +`</p>` +
                     `<p>Status :` + element.status + `</p>` 
-                    
                 })
 
-                marker.addListener('click', function() {
+                if(id === undefined){
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker)
+                    })
+                }else if(id === element.id){
                     infoWindow.open(map, marker)
-                })
-
-
+                }else {
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker)
+                    })
+                }
               });
             }
     </script>
@@ -140,8 +153,6 @@ src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLTqWECu-KGCj3sjk3qPuAaPM
 async
 defer
 ></script>
-
-   
 
   </body>
 </html>
