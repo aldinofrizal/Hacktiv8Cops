@@ -9,9 +9,7 @@ class Controller{
     static findAll(req,res){
         Crime.findAll({include : [Police , Category], attributes : {include : 'id'}})
             .then(rows => {
-                let avg = Crime.getCenteredCoords()
-                console.log('average', avg)
-                res.render('home' , {rows, avg: Crime.getCenteredCoords() })
+                res.render('home' , {rows, avg: Crime.getCenteredCoords(rows) })
             })
             .catch(err => console.log(err))
     }
@@ -68,6 +66,5 @@ class Controller{
     }
 }
 
-console.log(Crime.getCenteredCoords())
 
 module.exports = Controller

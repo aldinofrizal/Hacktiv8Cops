@@ -19,10 +19,12 @@
     <div id="map"  style="height: 50%"></div>
 
     <div id="rows" data-rows=<%= encodeURI(JSON.stringify(rows)) %> </div>
-    <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %></div>
+    <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %> </div>
     
     <div id="list-crime">
         <%= JSON.stringify(rows) %>
+        <br/>
+        <p>asads</p>
         <%= JSON.stringify(avg) %>
     </div>
 
@@ -40,16 +42,16 @@
         const data = document.getElementById('rows').dataset.rows
         const coords = JSON.parse(decodeURI(data))
         
-        const avg = JSON.parse(document.getElementById('avg').dataset.avg)
+        const avgURI = document.getElementById('avg').dataset.avg
+        const avg = JSON.parse(decodeURI(avgURI))
     
         
         var map;
         function initMap() {
-            // const data =  JSON.parse(rows.dataset.rows)
-            
-              var myLatLng = { lat: -6.259788, lng: 106.781646 };
+          
+              var myLatLng = { lat: Number(avg.latsAvg), lng: Number(avg.longsAvg) };
               var map = new google.maps.Map(document.getElementById("map"), {
-                  zoom: 10,
+                  zoom: 15,
                 center: myLatLng
             });
             
