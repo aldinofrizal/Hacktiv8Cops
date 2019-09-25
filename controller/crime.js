@@ -9,7 +9,7 @@ class Controller{
     static findAll(req,res){
         Crime.findAll({include : [Police , Category]})
             .then(rows => {
-                res.send(rows)
+                res.render('home' , {rows})
             })
             .catch(err => console.log(err))
     }
