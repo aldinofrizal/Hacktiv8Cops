@@ -15,21 +15,22 @@ class Controller{
     }
 
     static create(req, res){
+        
         Crime.create({
-            CategoryId : req.params.category,
-            PolouseId : req.params.police,
-            longitude : req.body.longitude,
-            latitude: req.body.latitude,
+            CategoryId : req.body.category,
+            PolouseId : 2,
+            longitude : Number(req.body.longitude),
+            latitude: Number(req.body.latitude),
             victim: req.body.victim,
             description: req.body.description,
             status: 'unsolved'
         })
         .then(row => {
             // res.send(row)
-            console.log(row)
+            res.redirect('/')
         })
         .catch(err => {
-            // res.send(err)
+            res.send(err)
         })
     }
 
@@ -51,8 +52,15 @@ class Controller{
         })
     }  
 
-    static editForm(req,res){
-        
+
+    static form(req,res){
+        Category.findAll()
+            .then(rows => {
+                res.render('addCrime' , {rows})
+            })
+            .catch(err => {
+                res.send(err)
+            })
     }
 }
 

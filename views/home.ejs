@@ -5,30 +5,80 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     
     <title>Hacktiv8Cops</title>
+    <style>
+      tr{
+        padding: 10px;
+      }
+      td{
+        text-align: center;
+        padding: 10px;
+      }
+    </style>
   </head>
   <body>
     <div id="map"  style="height: 50%"></div>
 
-    <div id="rows" data-rows = <%= JSON.stringify(rows) %> </div>
+    <div id="rows" data-rows =<%= rows%> </div>
     
     <div id="list-crime">
+      <table>
+        <tr>
+          <th>
+            Option
+          </th>
+          <th>
+            Category
+          </th>
+          <th>
+            Victim
+          </th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Time</th>
+        </tr>
         <% rows.forEach(x => { %>
-        <%= JSON.stringify(x) %>
+          <tr>
+            <td>
+              <%= x.CategoryId %>
+            </td>
+            <td>
+              <%= x.dataValues.Category.name %>
+            </td>
+            <td>
+              <%= x.victim %>
+            </td>
+            <td>
+              <%= x.status %>
+            </td>
+            <td>
+              <%= x.description %>
+            </td>
+            <td>
+              <%= x.createdAt %>
+            </td>
+          </tr>
         <br/>
         <% }) %>
+      </table>
+    </div>
+
+
+    <div id="links">
+        <a href="/crime/police-register">register</a>
+        <a href="/add">add crime</a>
     </div>
 
 
     <script>
-        // const data = document.getElementById(rows).dataset.test
-        // console.log(data)
-
         
         
+        
+        const data = document.getElementById('rows').dataset.rows
+        console.log(data)
         
         var map;
         function initMap() {
-            const data =  JSON.parse(rows.dataset.rows)
+            // const data =  JSON.parse(rows.dataset.rows)
             
               var myLatLng = { lat: -6.259788, lng: 106.781646 };
               var map = new google.maps.Map(document.getElementById("map"), {
@@ -38,11 +88,15 @@
 
               let marker;
 
-              data.forEach(element => {
-                marker = new google.maps.Marker({
-                position : new google.maps.LatLng( element.longitude ,  element.latitude),
-                map : map}) 
-              });
+              marker = new google.maps.Marker({
+                  position : new google.maps.LatLng(-6.256262, 106.7342),
+                  map:map
+              })
+            //   data.forEach(element => {
+            //     marker = new google.maps.Marker({
+            //     position : new google.maps.LatLng( element.longitude ,  element.latitude),
+            //     map : map}) 
+            //   });
             }
     </script>
 
