@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
-const mdoel = require('../models')
+const policeController = require('../controller/police')
 
 router.get('/')
 
-router.post('/')
+router.post('/police-register',policeController.create)
 
 
 

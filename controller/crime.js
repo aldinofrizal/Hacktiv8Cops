@@ -42,8 +42,4 @@ class Controller{
     }   
 }
 
-<<<<<<< HEAD
 module.exports = Controller
-=======
-Controller.update()
->>>>>>> 2cfbed1d696ee2bc66fd1b17c11663339d228955

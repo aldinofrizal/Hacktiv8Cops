@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       hooks: {
         beforeCreate: (instance, option) => {
           const salt = String(Math.random() * 1000);
-          const password = hashPassword(this.password, salt);
+          const password = hashPassword(instance.dataValues.password, salt);
           instance.setDataValue("password", password);
           instance.setDataValue("salt", salt);
         }
