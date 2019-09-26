@@ -47,22 +47,24 @@
         <form class="col s12" action="/crimes/add" method="POST">
           <div class="row">
             <div class="input-field col 12">
-              <input id="victim"  name="victim" type="text" data-length="10" />
+              <input id="victim"  name="victim" type="text" data-length="10" required/>
               <label for="victim">Victim</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col 12">
-              <input id="longitude" name="longitude" type="text" data-length="10" />
+              <input id="longitude" name="longitude" type="number" step="0.000000000000001" data-length="10" required/>
               <label for="longitude">longitude</label>
+              <span class="helper-text" data-error="wrong" data-success="right">ex: 10x.xxxxx <br> minimal 5 angka decimal</span>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col 12">
-              <input id="latitude" name="latitude" type="text" data-length="10" />
+              <input id="latitude" name="latitude" type="number" step="0.00000000000001" data-length="10" required/>
               <label for="latitude">latitude</label>
+              <span class="helper-text" data-error="wrong" data-success="right">ex: -x.xxxxx <br> minimal 5 angka decimal</span>
             </div>
           </div>
 
@@ -79,7 +81,7 @@
           </div>
 
           <div class="input-field col 12">
-            <select name="category">
+            <select name="category" required>
               <option value="" disabled selected>Choose your option</option>
               <%rows.forEach(x => { %>
               <option value="<%=x.id%>"><%= x.name %></option>

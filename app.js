@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const police = require('./routes/policeRouter')
 const crime = require('./routes/crimeRouter')
-const PORT = 5000
+const PORT = process.env.PORT || 4000
 const session = require('express-session')
 
 app.use(express.json()) // for parsing application/json

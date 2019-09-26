@@ -48,7 +48,7 @@
         <form class="col s12" action="/crimes/edit/<%= data.id %>" method="POST">
           <div class="row">
             <div class="input-field col 12">
-              <input id="victim" name="victim" type="text" data-length="10" value="<%= data.victim %>" />
+              <input id="victim" name="victim" type="text" data-length="10" value="<%= data.victim %>"/>
               <label for="victim">Victim</label>
             </div>
           </div>
@@ -63,6 +63,7 @@
                 value="<%= data.longitude %>"
               />
               <label for="longitude">longitude</label>
+              <span class="helper-text" data-error="wrong" data-success="right">ex: 10x.xxxxx</span>
             </div>
           </div>
 
@@ -76,6 +77,7 @@
                 value="<%= data.latitude %>"
               />
               <label for="latitude">latitude</label>
+              <span class="helper-text" data-error="wrong" data-success="right">ex: -x.xxxxx</span>
             </div>
           </div>
 
@@ -93,11 +95,15 @@
 
           <div class="input-field col 12">
             <select name="status">
-              <option value="" disabled selected>Choose your option</option>
-              <option value="solved">solved</option>
-              <option value="unsolved">unsolved</option>              
+              <% if(data.status === 'solved'){%>
+                <option value="unsolved">unsolved</option>           
+                <option value="solved" selected>solved</option>
+            <%}else{%>
+                <option value="unsolved" selected>unsolved</option>           
+                <option value="solved">solved</option>
+            <%}%>
             </select>
-            <label> Category</label>
+            <label> Status</label>
           </div>
 
           <div class="col s12">
@@ -106,7 +112,7 @@
               type="submit"
               name="action"
             >
-              Add Crime
+              Update Crime
             </button>
           </div>
         </form>

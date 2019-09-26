@@ -16,7 +16,7 @@ app.use(session({
 }))
 
 router.get('/',(req,res)=>{
-    res.render('loginForm')
+    res.render('loginForm',{err:null})
 })
 
 router.get('/police-register',Police.form)
@@ -34,7 +34,7 @@ router.post('/',(req,res)=>{
         if(data.password === hash){
             res.redirect('/crimes')
         }else{
-            res.render('loginForm')
+            res.render('loginForm',{err: "password/username salah"})
         }
     })
     .catch(err=>{
