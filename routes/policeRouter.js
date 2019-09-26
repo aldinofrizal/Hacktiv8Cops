@@ -46,4 +46,9 @@ router.get('/logout',(req,res)=>{
     req.session.destroy(()=>{res.redirect('/polices/login')})
 })
 
+
+router.get('/police-register',Police.form)
+
+router.post('/police-register',Police.create)
+
 module.exports = router
