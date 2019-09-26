@@ -5,5 +5,12 @@
     "database": "HackThief8",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "production": {
+    "username": "ftwomionsunsep",
+    "password": "85fe5a7264cdb1d8fcfa99f3c6709eabc5f21a523e78c116fff489f555c565cd",
+    "database": "dcigpg35979jjc",
+    "host": "ec2-50-19-95-77.compute-1.amazonaws.com",
+    "dialect": "postgres"
   }
 }
