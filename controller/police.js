@@ -8,7 +8,7 @@ class Controller{
             password: req.body.password,
         })
         .then(row=>{
-            res.redirect('/')
+            res.redirect('/crimes')
         })
         .catch(err=>{
             res.send(err)
