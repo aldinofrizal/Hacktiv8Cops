@@ -19,6 +19,10 @@ router.get('/login',(req,res)=>{
     res.render('loginForm')
 })
 
+router.get('/police-register',Police.form)
+
+router.post('/police-register',Police.create)
+
 router.post('/login',(req,res)=>{
     model.Police.findOne({
         where:{
