@@ -42,4 +42,8 @@ router.post('/login',(req,res)=>{
     }
 })
 
+router.get('/logout',(req,res)=>{
+    req.session.destroy(()=>{res.redirect('/polices/login')})
+})
+
 module.exports = router
