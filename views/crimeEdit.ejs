@@ -1,41 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crime | Edit</title>
-</head>
-<body>
-    <form action="/edit/<%= data.id%>" method="POST">
-        <label for="victim">
-            Victim : <input type="text" name="victim" value="<%= data.victim %>">
-        </label>
-        <br>
-        <br>
-        <label for="description">
-            Description : <textarea rows="4" cols="50" type="text" name="description"><%=data.description %></textarea>
-        </label>
-        <br>
-        <br>
-        <label for="longitude">
-            Longitude : <input type="text" name="longitude" value="<%= data.longitude %>">
-        </label>
-        <br>
-        <br>
-        <label for="latitude">
-            Latitude : <input type="text" name="latitude" value="<%= data.latitude %>">
-        </label>
-        <br>
-        <br>
-        <p>Status terkini : <%= data.status %></p>
-        <select name="status">
-            <option value="solved">Solved</option>
-            <option value="unsolved">Unsolved</option>
-        </select>
-        <br>
-        <br>
-        <input type="submit" value="Save">
-    </form>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #form-add-crime {
+        border: 1px solid grey;
+        padding: 30px;
+        border-radius: 10px;
+      }
+      #wrap {
+        width: 600px;
+      }
+      .input-field {
+        width: 500px;
+      }
+      label,
+      input {
+        margin: 0;
+        padding: 0;
+      }
+      .row {
+        margin: 0;
+      }
+    </style>
+
+    <title>Hacktiv8Cop | Edit</title>
+  </head>
+  <body>
+    <div id="wrap">
+      <div class="row" id="form-add-crime">
+        <h5 class="center">Hacktiv8Cop Police Department</h5>
+        <p class="center">crime database form</p>
+
+        <form class="col s12" action="/edit/<%= data.id %>" method="POST">
+          <div class="row">
+            <div class="input-field col 12">
+              <input id="victim" name="victim" type="text" data-length="10" value="<%= data.victim %>" />
+              <label for="victim">Victim</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col 12">
+              <input
+                id="longitude"
+                name="longitude"
+                type="text"
+                data-length="10"
+                value="<%= data.longitude %>"
+              />
+              <label for="longitude">longitude</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col 12">
+              <input
+                id="latitude"
+                name="latitude"
+                type="text"
+                data-length="10"
+                value="<%= data.latitude %>"
+              />
+              <label for="latitude">latitude</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col 12">
+              <textarea
+                id="description"
+                class="materialize-textarea"
+                data-length="120"
+                name="description"
+              ><%= data.description %></textarea>
+              <label for="description">description</label>
+            </div>
+          </div>
+
+          <div class="input-field col 12">
+            <select name="status">
+              <option value="" disabled selected>Choose your option</option>
+              <option value="solved">solved</option>
+              <option value="unsolved">unsolved</option>              
+            </select>
+            <label> Category</label>
+          </div>
+
+          <div class="col s12">
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="action"
+            >
+              Add Crime
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("select").formSelect();
+      });
+    </script>
+   
+  </body>
 </html>

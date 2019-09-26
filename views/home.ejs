@@ -1,158 +1,171 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
-    <title>Hacktiv8Cops</title>
-    <style>
-      tr{
-        padding: 10px;
-      }
-      td{
-        text-align: center;
-        padding: 10px;
-      }
-      p{
-          margin: 0;
-      }
-      .gm-style-iw{
-          height: 1000px !important;
-          width: 300px;
-      }
-      table,th,td{
-        border-bottom: 2px solid black;
-        border-collapse: collapse
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"  style="height: 50%; width: 100%"></div>
 
-    <div id="links">
-        <a href="/crime/police-register">register</a>
-        <a href="/add">add crime</a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <title>Hacktiv8Cops</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  <style>
+    body {
+      height: 97vh;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .gm-style-iw {
+      /* height: 500px !important; */
+      width: 300px;
+    }
+
+    .cards {
+      border: .5px solid grey;
+      border-radius: 10px;
+      margin: 5px auto;
+      padding: 10px;
+      width: 400px;
+    }
+
+    #map {
+      height: 100%;
+    }
+
+    #map-container {
+      overflow: hidden;
+    }
+
+    #list-crime {
+      border: .5px solid grey;
+    }
+
+    #list-crime-scroll {
+      height: 81vh;
+      overflow: scroll;
+    }
+    #links{
+      margin: 5px;
+    }
+    .cards-btn{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %> </div> <div id="rows"
+    data-rows=<%= encodeURI(JSON.stringify(rows)) %> </div> <div id="main-web" class="row">
+
+    <div id="map-container" class="col s8">
+      <div id="map"></div>
     </div>
-    <br>
-    <br>
-    <a href="/">Default</a>
 
-    <div id="rows" data-rows=<%= encodeURI(JSON.stringify(rows)) %> </div>
-      <div id="list-crime">
-        <table>
-          <tr>
-            <th>
-              Option
-            </th>
-            <th>
-              Category
-            </th>
-            <th>
-              Victim
-            </th>
-            <th>Status</th>
-            <th>Description</th>
-            <th>Time</th>
-            <th>Button</th>
-          </tr>
-          <% rows.forEach((x,index) => { %>
-            <tr>
-              <td>
-                <a href="/edit/<%= x.id %>">Edit</a>
-              </td>
-              <td>
-                <%= x.dataValues.Category.name %>
-              </td>
-              <td>
-                <%= x.victim %>
-              </td>
-              <td>
-                <%= x.status %>
-              </td>
-              <td>
-                <%= x.description %>
-              </td>
-              <td>
-                <%= x.createdAt %>
-              </td>
-              <td>
-                <button onclick="initMap(<%=x.latitude%>,<%=x.longitude%>,<%=x.id%>,18)">Click</button>
-                <br>
-                <br>
-                <button>Delete</button>
-              </td>
-            </tr>
-            <br/>
-          <% }) %>
-        </table>
-          <% encodeURI(JSON.stringify(rows)) %>
+    <div id="list-crime" class="col s4">
+      <h5 class="center">Hacktiv8Cops</h5>
+      <div id="links">
+        <a class="btn-small" href="/logout">logout</a>
+        <a class="btn-small" href="/add">add crime</a>
+        <a class="btn-small" href="/">Default</a>
       </div>
-    <div id="avg" data-avg=<%= encodeURI(JSON.stringify(avg)) %> </div>
+      
+      <div id="list-crime-scroll">
+        <% rows.forEach((x,index) => { %>
+        <div class="cards">
+          <p class="cards-title"><%= x.dataValues.Category.name %></p>
+          <p><b><%= x.victim %></b></p>
+          <p><span><%= x.createdAt %></span></p>
+          <p><%= x.description %></p>
+          <% if(x.status === 'unsolved') { %>
+            <p style="color: red">status : <%= x.status %></p>
+             <% } else {%>
+            <p style="color:green">status : <%= x.status %></p>
+          <% } %>
+          <div class="cards-btn">
+            <div class="positive-btn">
+              <a class="btn-small" href="/edit/<%= x.id %>">Edit</a>
+              <button class="btn-small" onclick="initMap(<%=x.latitude%>,<%=x.longitude%>,<%=x.id%>,18)">View</button>
+            </div>
+            <div id="negative-btn">
+              <a href="" class="btn-small red">Delete</a>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+      </div>
+    </div>
+
+  </div>
 
 
-    <script>
 
-        const data = document.getElementById('rows').dataset.rows
-        const coords = JSON.parse(decodeURI(data))
-        
-        const avgURI = document.getElementById('avg').dataset.avg
-        const avg = JSON.parse(decodeURI(avgURI))
-    
-        
-        var map;
-        function initMap(x = Number(avg.latsAvg) ,y = Number(avg.longsAvg) , id = undefined,z=12) {
-          
-              var myLatLng = { lat: x, lng: y };
-              var map = new google.maps.Map(document.getElementById("map"), {
-                  zoom: z,
-                center: myLatLng
-            });
-            
-            let marker;
-            
-              coords.forEach((element, index) => {
-                let url = "http://maps.google.com/mapfiles/ms/icons/";
-                if(element.status === "unsolved"){
-                  url += "red" + "-dot.png";
-                }else if(element.status === "solved"){
-                  url += "green" + "-dot.png";
-                }
-                marker = new google.maps.Marker({
-                position : new google.maps.LatLng( element.latitude ,  element.longitude),
-                map : map,
-                icon: {
-                  url:url
-                }
-              }) 
-                
-                let infoWindow = new google.maps.InfoWindow({
-                    content : 
-                    `<p><b>` + element.Category.name + `</b></p>` +
-                    `<p>Victim :<b>`+ element.victim +`</b></p>` +
-                    `<p>Description :`+ element.description +`</p>` +
-                    `<p>`+ Date(element.createdAt).slice(0,24) +`</p>` +
-                    `<p>Status :` + element.status + `</p>` 
-                })
+  <script>
 
-                if(id === undefined){
-                    marker.addListener('click', function() {
-                        infoWindow.open(map, marker)
-                    })
-                }else if(id === element.id){
-                    infoWindow.open(map, marker)
-                }else {
-                    marker.addListener('click', function() {
-                        infoWindow.open(map, marker)
-                    })
-                }
-              });
-            }
-    </script>
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLTqWECu-KGCj3sjk3qPuAaPM9P0hyhOg&callback=initMap"
-async
-defer
-></script>
+    const data = document.getElementById('rows').dataset.rows
+    const coords = JSON.parse(decodeURI(data))
 
-  </body>
+    const avgURI = document.getElementById('avg').dataset.avg
+    const avg = JSON.parse(decodeURI(avgURI))
+
+
+    var map;
+    function initMap(x = Number(avg.latsAvg), y = Number(avg.longsAvg), id = undefined, z = 12) {
+
+      var myLatLng = { lat: x, lng: y };
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: z,
+        center: myLatLng
+      });
+
+      let marker;
+
+      coords.forEach((element, index) => {
+        let url = "http://maps.google.com/mapfiles/ms/icons/";
+        if (element.status === "unsolved") {
+          url += "red" + "-dot.png";
+        } else if (element.status === "solved") {
+          url += "green" + "-dot.png";
+        }
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(element.latitude, element.longitude),
+          map: map,
+          icon: {
+            url: url
+          }
+        })
+
+        let infoWindow = new google.maps.InfoWindow({
+          content:
+            `<p><b>` + element.Category.name + `</b></p>` +
+            `<p>Victim :<b>` + element.victim + `</b></p>` +
+            `<p>Description :` + element.description + `</p>` +
+            `<p>` + Date(element.createdAt).slice(0, 24) + `</p>` +
+            `<p>Status :` + element.status + `</p>`
+        })
+
+        if (id === undefined) {
+          marker.addListener('click', function () {
+            infoWindow.open(map, marker)
+          })
+        } else if (id === element.id) {
+          infoWindow.open(map, marker)
+        } else {
+          marker.addListener('click', function () {
+            infoWindow.open(map, marker)
+          })
+        }
+      });
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLTqWECu-KGCj3sjk3qPuAaPM9P0hyhOg&callback=initMap"
+    async defer></script>
+
+</body>
+
 </html>

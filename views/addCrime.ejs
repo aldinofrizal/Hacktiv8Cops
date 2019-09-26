@@ -1,43 +1,117 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>add crime</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-    <form action="/add" method="POST">
-    
-    <label for="victim">victim</label>
-    <input type="text" name="victim">
-    <br/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <style>
+        body{
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+      #form-add-crime {
+          border: 1px solid grey;
+          padding: 30px;
+          border-radius: 10px;
+      }
+      #wrap {
+          width: 600px;
+      }
+      .input-field{
+          width: 500px;
+      }
+      label,input{
+          margin: 0;
+          padding: 0;
+      }
+      .row{
+          margin: 0;
+      }
+    </style>
 
-    <label for="category">category</label>
-    
-    <select name="category" id="category">
-        <option > choose category</option>
-        <% rows.forEach(x => { %>
-         <option value="<%=x.id%>"><%= x.name %></option>
-        <% }) %>
-    </select>
-    
-    <br/>
+    <title>Hacktiv8Cop : add crime</title>
+  </head>
+  <body>
 
-    <label for="longitude">longitude</label>
-    <input type="text" name="longitude">
-    <br/>
+    <div id="wrap">
+        <div class="row" id="form-add-crime">
+                <h5 class="center">Hacktiv8Cop Police Department</h5>
+                <p class="center">crime database form</p>
+        <form class="col s12" action="/add" method="POST">
+          <div class="row">
+            <div class="input-field col 12">
+              <input id="victim"  name="victim" type="text" data-length="10" />
+              <label for="victim">Victim</label>
+            </div>
+          </div>
 
-    <label for="latitude">latitude</label>
-    <input type="text" name="latitude">
-    <br/>
-    
-    <label for="description">description</label>
-    <textarea  name="description"> </textarea>
-    <br/>
+          <div class="row">
+            <div class="input-field col 12">
+              <input id="longitude" name="longitude" type="text" data-length="10" />
+              <label for="longitude">longitude</label>
+            </div>
+          </div>
 
-    <button type="submit">add</button>
-    
-    </form>
-</body>
+          <div class="row">
+            <div class="input-field col 12">
+              <input id="latitude" name="latitude" type="text" data-length="10" />
+              <label for="latitude">latitude</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col 12">
+              <textarea
+                id="description"
+                class="materialize-textarea"
+                data-length="120"
+                name="description"
+              ></textarea>
+              <label for="description">description</label>
+            </div>
+          </div>
+
+          <div class="input-field col 12">
+            <select name="category">
+              <option value="" disabled selected>Choose your option</option>
+              <%rows.forEach(x => { %>
+              <option value="<%=x.id%>"><%= x.name %></option>
+              <% }) %>
+            </select>
+            <label> Category</label>
+          </div>
+
+          <div class="col s12">
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="action"
+            >
+              Add Crime
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("select").formSelect();
+      });
+    </script>
+  </body>
 </html>
