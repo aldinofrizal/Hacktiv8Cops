@@ -77,6 +77,17 @@ class Controller{
                 res.send(err)
             })
     }
+
+    static delete(req,res){
+        Crime.destroy({
+            where:{
+                id: req.params.id
+            }
+        })
+        .then(data=>{
+            res.redirect('/crimes')
+        })
+    }
 }
 
 

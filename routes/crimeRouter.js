@@ -28,4 +28,6 @@ router.get('/edit/:id',Crime.findOne)
 
 router.post('/edit/:id',Crime.update)
 
+router.get('/delete/:id',Crime.delete)
+
 module.exports = router
