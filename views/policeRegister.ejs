@@ -4,10 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <style>
+      body {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #form-add-crime {
+        border: 1px solid grey;
+        padding: 30px;
+        border-radius: 10px;
+      }
+      #wrap {
+        width: 600px;
+      }
+      .input-field {
+        width: 500px;
+      }
+      label,
+      input {
+        margin: 0;
+        padding: 0;
+      }
+      .row {
+        margin: 0;
+      }
+    </style>
     <title>Police | Register</title>
 </head>
 <body>
-    <form action="/crimes/police-register" method="POST">
+    <form action="/police-register" method="POST">
+        <p>ini register police</p>
         <label for="name">
             Name : <input type="text" name="name" required>
         </label>
@@ -22,7 +55,18 @@
             Password : <input type="password" name="password" required>
         </label>
         <br>
-        <input type="submit" value="Register">
+        <input class="waves-effect waves-light btn-large" type="submit" value="Register">
     </form>
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("select").formSelect();
+      });
+    </script>
 </body>
 </html>

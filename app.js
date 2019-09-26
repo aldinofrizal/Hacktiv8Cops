@@ -18,12 +18,9 @@ app.use(session({
 }))
 
 
-app.use('/', (req,res) => {
-  res.render('loginForm')
-})
 app.use('/crimes', crime)
 
-app.use('/polices',police)
+app.use('/',police)
 
 
 app.listen(PORT,()=> console.log('listening to port ',PORT))

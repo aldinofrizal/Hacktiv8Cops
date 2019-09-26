@@ -27,7 +27,7 @@ class Controller{
         })
         .then(row => {
             // res.send(row)
-            res.redirect('/')
+            res.redirect('/crimes')
         })
         .catch(err => {
             res.send(err)
@@ -60,7 +60,7 @@ class Controller{
             }
         })
         .then(row => {
-            res.redirect('/')
+            res.redirect('/crimes')
         })
         .catch(err => {
             console.log(err)

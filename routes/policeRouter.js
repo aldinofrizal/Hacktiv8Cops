@@ -15,7 +15,7 @@ app.use(session({
   cookie: { secure: false }
 }))
 
-router.get('/login',(req,res)=>{
+router.get('/',(req,res)=>{
     res.render('loginForm')
 })
 
@@ -23,7 +23,7 @@ router.get('/police-register',Police.form)
 
 router.post('/police-register',Police.create)
 
-router.post('/login',(req,res)=>{
+router.post('/',(req,res)=>{
     model.Police.findOne({
         where:{
             name: req.body.username
@@ -31,7 +31,6 @@ router.post('/login',(req,res)=>{
     })
     .then(data=>{
         let hash = hashPass(req.body.password,data.salt)
-        console.log(hash === data.password)
         if(data.password === hash){
             res.redirect('/crimes')
         }else{
@@ -47,7 +46,7 @@ router.post('/login',(req,res)=>{
 })
 
 router.get('/logout',(req,res)=>{
-    req.session.destroy(()=>{res.redirect('/polices/login')})
+    req.session.destroy(()=>{res.redirect('/')})
 })
 
 

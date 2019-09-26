@@ -8,11 +8,11 @@ const middleware = (req,res,next)=>{
     if(req.session.user){
         next()
     }else{
-        res.redirect('/polices/login')
+        res.redirect('/')
     }
 }
 
-// router.use(middleware)
+router.use(middleware)
 
 router.get('/' , Crime.findAll)
 
