@@ -16,7 +16,6 @@ const middleware = (req,res,next)=>{
 
 router.get('/' , Crime.findAll)
 
-
 router.get('/add', Crime.form)
 
 router.post('/add', Crime.create)
