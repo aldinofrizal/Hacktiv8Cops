@@ -8,7 +8,7 @@
   <title>Hacktiv8Cops</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <style>
     body {
       height: 97vh;
@@ -59,11 +59,11 @@
     ::-webkit-scrollbar {
     width: 0px;  /* Remove scrollbar space */
     background: transparent;  /* Optional: just make scrollbar invisible */
-}
-/* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
-}
+    }
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+        background: #FF0000;
+    }
   </style>
 </head>
 
@@ -82,7 +82,9 @@
         <a class="btn-small" href="/crimes/add">add crime</a>
         <a class="btn-small" href="/crimes">Default</a>
       </div>
-      
+
+      <input type="text" id="myInput" placeholder="Search....">
+
       <div id="list-crime-scroll">
         <% rows.forEach((x,index) => { %>
         <div class="cards">
@@ -111,7 +113,20 @@
 
   </div>
 
-
+  <script>
+    $("#myInput").keyup(function() {
+      var filter = $(this).val(),
+        count = 0;
+      $('#list-crime-scroll div').each(function() {
+        if ($(this).text().search(new RegExp(filter, "i")) == -1) {
+          $(this).hide(); 
+        } else {
+          $(this).show(); 
+          count++;
+        }
+      });
+    });
+  </script>
 
   <script>
 
