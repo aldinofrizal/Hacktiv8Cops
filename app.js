@@ -23,4 +23,4 @@ app.use('/crimes', crime)
 app.use('/',police)
 
 
-app.listen(PORT,()=> console.log('listening to port ',PORT))
+app.listen(PORT,()=> console.log('app listening to port ',PORT))
